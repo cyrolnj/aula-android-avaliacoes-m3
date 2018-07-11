@@ -77,9 +77,9 @@ public class CreateReviewActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.ACCESS_FINE_LOCATION,
             }, 0);
+        } else {
+            getCoordinates();
         }
-
-        getCoordinates();
 
 
 
@@ -111,6 +111,10 @@ public class CreateReviewActivity extends AppCompatActivity {
 
             ReviewDAO.addToList(newReview);
             finish();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "No coordinates found, try again",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -142,6 +146,7 @@ public class CreateReviewActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     public void getCoordinates() {
+
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if(listenerCoordinates == null){
 
@@ -168,8 +173,8 @@ public class CreateReviewActivity extends AppCompatActivity {
                     listenerCoordinates
             );
         }else{
-            locationManager.removeUpdates( listenerCoordinates );
-            listenerCoordinates = null;
+            //locationManager.removeUpdates( listenerCoordinates );
+            //listenerCoordinates = null;
         }
 
 
